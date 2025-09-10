@@ -1,9 +1,9 @@
 
 export default function Home() {
   return (
-    <div>
-      <h1 className="text-4xl font-bold text-primary">iStorage</h1>
-      <p className="text-lg text-muted">Welcome to iStorage, your secure cloud storage solution.</p>
+    <div className="center-flex flex-col gap-4">
+      <h1 className="h1 text-primary">iStorage</h1>
+      <p className="h5 text-muted">Welcome to iStorage, your secure cloud storage solution.</p>
     </div>
   );
 }
