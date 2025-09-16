@@ -34,7 +34,20 @@
 
   .h5 {
     @apply text-[18px] leading-[24px] font-semibold;
-}
+  }
+
+  .p {
+    @apply text-[16px] leading-[24px];
+  }
+
+  .form-title {
+    @apply text-3xl font-semibold text-center md:text-left text-brown;
+  }
+
+  .auth-form {
+    @apply flex max-h-[800px] max-w-[580px] flex-col justify-center space-y-6 transition-all lg:h-full lg:space-y-10
+  }
+
 }
 
 @theme inline {

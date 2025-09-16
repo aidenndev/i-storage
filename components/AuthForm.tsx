@@ -1,7 +1,7 @@
-"use client"
-import React, { use } from 'react'
+"use client";
+import React, { use } from "react";
 import { z } from "zod";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -10,58 +10,76 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
-})
-
+});
 
 type AuthFormType = {
-  type: 'sign-in' | 'sign-up'
-}
+  type: "sign-in" | "sign-up";
+};
 
-const AuthForm = ({type}: AuthFormType) => {
-    // Define the form
+const AuthForm = ({ type }: AuthFormType) => {
+  // Define the form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
     },
-  })
- 
+  });
+
   // Define a submit handler.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values)
-  }
-
+    console.log(values);
+  };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="auth-form">
+          <h1 className="form-title">
+            {type === "sign-in" ? "Sign In" : "Create Account"}
+          </h1>
+          {type === "sign-up" && (
+            <FormField
+              control={form.control}
+              name="fullName"
+              render={({ field }) => (
+                <FormItem className="form-item">
+                  <FormLabel className="form-label">Full Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter your full name" {...field} />
+                  </FormControl>
+                  <FormMessage className="form-message" />
+                </FormItem>
+              )}
+            />
           )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
-  )
-}
 
-export default AuthForm
+                     <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="form-item">
+                  <FormLabel className="form-label">Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter your email" {...field} />
+                  </FormControl>
+                  <FormMessage className="form-message" />
+                </FormItem>
+              )}
+            />
+          <Button type="submit" className="form-submit-button">
+            {type === "sign-in" ? "Sign In" : "Sign Up"}
+          </Button>
+        </form>
+      </Form>
+    </>
+  );
+};
+
+export default AuthForm;
